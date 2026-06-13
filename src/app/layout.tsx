@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Glorious Heritage Ministries | Welcome Home",
-  description: "A place of Heavenly Heritage. Join us every Subday at Elimor Event Centre, Tema at 7:00 - 9:00 AM our first Service and 9:00 - 12:00 at our second service or worship with us online via YouTube and Facebook.",
+  description: "A place of Heavenly Heritage. Join us every Sunday at Elimor Event Centre, Tema at 7:00 - 9:00 AM our first Service and 9:00 - 12:00 at our second service or worship with us online via YouTube and Facebook.",
 };
 
 export default function RootLayout({
