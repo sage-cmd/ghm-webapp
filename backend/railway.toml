@@ -1,7 +1,5 @@
-cat > railway.toml << 'EOF'
 [build]
-builder = "NIXPACKS"
+builder = "RAILPACK"
 
 [deploy]
 startCommand = "gunicorn ghm_web.wsgi --bind 0.0.0.0:$PORT"
-EOF
