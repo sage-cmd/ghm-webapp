@@ -52,6 +52,8 @@ ROOT_URLCONF = 'ghm_web.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://gloriousheritageministries.vercel.app",
+    "https://ghm-webapp.vercel.app",
     os.getenv('VERCEL_URL', 'gloriousheritageministries.vercel.app'),         # e.g. https://your-app.vercel.app
 ]
 
