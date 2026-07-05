@@ -14,6 +14,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'ghm-webapp.onrender.com',
     os.getenv('RAILWAY_HOST', 'gloriousheritageministries.railway.app'),       # e.g. your-app.railway.app
 ]
 
