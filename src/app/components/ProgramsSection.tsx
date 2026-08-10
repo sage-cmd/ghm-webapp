@@ -99,10 +99,10 @@ export default function ProgramsSection() {
             </h4>
 
             <ul className="space-y-3 text-lg">
-              <li>🙏 <strong>Friday:</strong> Turn Around Prayer Meeting – 6:30 PM</li>
-              <li>🌅 <strong>Sunday:</strong> Morning Glory Service – 7:00 AM</li>
-              <li>⭐ <strong>Sunday:</strong> Day Star Service – 9:00 AM</li>
-              <li>🍞 <strong>First Sunday:</strong> Communion & Joint Service – 8:00 AM</li>
+              <li> <strong>Friday:</strong> Turn Around Prayer Meeting – 6:30 PM</li>
+              <li> <strong>Sunday:</strong> Morning Glory Service – 7:00 AM</li>
+              <li> <strong>Sunday:</strong> Day Star Service – 9:00 AM</li>
+              <li> <strong>First Sunday:</strong> Communion & Joint Service – 8:00 AM</li>
             </ul>
           </div>
         )}
@@ -111,29 +111,29 @@ export default function ProgramsSection() {
         {showAllPrograms && !showSchedule && (
           <div className="mt-10 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl p-6 shadow-lg max-w-3xl mx-auto">
             <h4 className="text-2xl font-bold mb-4 text-center">
-              🎉 All Programs & Special Events
+               All Programs & Special Events
             </h4>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg">
               {/* Weekly Services */}
               <div className="bg-white/10 rounded-lg p-4">
-                <h5 className="font-semibold mb-3 border-b border-white/20 pb-2">📅 Weekly Services</h5>
+                <h5 className="font-semibold mb-3 border-b border-white/20 pb-2"> Weekly Services</h5>
                 <ul className="space-y-2">
-                  <li>🙏 <strong>Friday:</strong> Turn Around Prayer – 6:30 PM</li>
-                  <li>🌅 <strong>Sunday:</strong> Morning Glory – 7:00 AM</li>
-                  <li>⭐ <strong>Sunday:</strong> Day Star Service – 9:00 AM</li>
-                  <li>🍞 <strong>1st Sunday:</strong> Communion Service – 8:00 AM</li>
+                  <li> <strong>Friday:</strong> Turn Around Prayer – 6:30 PM</li>
+                  <li> <strong>Sunday:</strong> Morning Glory – 7:00 AM</li>
+                  <li> <strong>Sunday:</strong> Day Star Service – 9:00 AM</li>
+                  <li> <strong>1st Sunday:</strong> Communion Service – 8:00 AM</li>
                 </ul>
               </div>
 
               {/* Annual & Special Events */}
               <div className="bg-white/10 rounded-lg p-4">
-                <h5 className="font-semibold mb-3 border-b border-white/20 pb-2">🌟 Annual & Special Events</h5>
+                <h5 className="font-semibold mb-3 border-b border-white/20 pb-2"> Annual & Special Events</h5>
                 <ul className="space-y-2">
-                  <li>🎤 <strong>May:</strong> Annual Unveil Conference</li>
-                  <li>🙌 <strong>Quarterly:</strong> Prayer, Praise & Worship Night</li>
-                  <li>🎄 <strong>December:</strong> Christmas Carol Celebration</li>
-                  <li>👧👦 <strong>June:</strong> Children's Day Celebration</li>
+                  <li> <strong>May:</strong> Annual Unveil Conference</li>
+                  <li> <strong>Quarterly:</strong> Prayer, Praise & Worship Night</li>
+                  <li> <strong>December:</strong> Christmas Carol Celebration</li>
+                  <li> <strong>June:</strong> Children's Day Celebration</li>
                 </ul>
               </div>
             </div>

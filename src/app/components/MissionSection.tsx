@@ -10,7 +10,8 @@ export default function MissionSection() {
 
   const missionContent = {
     title: "Our Mission",
-    description: `Our mission is to spread the word of God, build a loving community, 
+    description: `Our mission is to bring people into the knowledge of their inheritance in Christ,
+     spread the word of God, build a loving community, 
     and serve those in need. We believe in faith, hope, and love, and 
     strive to make a positive impact in our community through worship, 
     fellowship, and outreach programs.`,
