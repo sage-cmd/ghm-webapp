@@ -39,18 +39,18 @@ export default function MissionSection() {
   };
 
   return (
-    <section className="relative py-24 overflow-hidden">
-      {/* Background Image */}
-      <Image
-        src="/images/hero-bg.webp"
-        alt="Mission background"
-        fill
-        className="object-cover"
-        priority
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"></div>
+    <section className="relative py-24">
+      {/* Background layer (clipped so the image/overlay stay within the section) */}
+      <div className="absolute inset-0 overflow-hidden">
+        <Image
+          src="/images/hero-bg.webp"
+          alt="Mission background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"></div>
+      </div>
 
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
@@ -92,17 +92,21 @@ export default function MissionSection() {
 
             {activeStat === "churches" && (
               <div
-                className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-72 sm:w-80 bg-white text-gray-900 rounded-xl shadow-xl p-5 text-left z-20 animate-fade-in"
+                className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[90vw] max-w-md sm:w-96 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left z-30 animate-fade-in"
                 onClick={(e) => e.stopPropagation()}
               >
-                <h4 className="font-semibold text-green-600 mb-1">
+                <h4 className="font-semibold text-green-600 text-lg mb-1">
                   {churchesContent.heading}
                 </h4>
-                <p className="text-sm text-gray-700 mb-4">{churchesContent.body}</p>
-                <h4 className="font-semibold text-green-600 mb-1">
+                <p className="text-base leading-relaxed text-gray-700 mb-4">
+                  {churchesContent.body}
+                </p>
+                <h4 className="font-semibold text-green-600 text-lg mb-1">
                   {churchesContent.branchHeading}
                 </h4>
-                <p className="text-sm text-gray-700">{churchesContent.branchBody}</p>
+                <p className="text-base leading-relaxed text-gray-700">
+                  {churchesContent.branchBody}
+                </p>
               </div>
             )}
           </div>
@@ -119,10 +123,10 @@ export default function MissionSection() {
 
             {activeStat === "lives" && (
               <div
-                className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-72 sm:w-80 bg-white text-gray-900 rounded-xl shadow-xl p-5 text-left z-20 animate-fade-in"
+                className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[90vw] max-w-md sm:w-96 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left z-30 animate-fade-in"
                 onClick={(e) => e.stopPropagation()}
               >
-                <p className="text-sm text-gray-700">{livesContent}</p>
+                <p className="text-base leading-relaxed text-gray-700">{livesContent}</p>
               </div>
             )}
           </div>
