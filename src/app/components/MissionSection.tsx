@@ -7,6 +7,7 @@ import { X } from "lucide-react";
 
 export default function MissionSection() {
   const [showMission, setShowMission] = useState(false);
+  const [activeStat, setActiveStat] = useState<"churches" | "lives" | null>(null);
 
   const missionContent = {
     title: "Our Mission",
@@ -22,6 +23,21 @@ export default function MissionSection() {
       "Spread the Gospel",
     ],
   };
+
+  const churchesContent = {
+    heading: "Head Office",
+    body: "We are currently located at Elimol Event Court, Community 11 Tema, adjacent to Apostolic Church of Ghana.",
+    branchHeading: "Branches",
+    branchBody: "Asebi Church located in Asebi Town in the Greater Accra Region.",
+  };
+
+  const livesContent =
+    "Hundreds of lives have been touched and transformed by the ministry over the years, and we are still continuing in this commission to touch the thousands and the millions to fulfil the mandate of the great commission.";
+
+  const toggleStat = (stat: "churches" | "lives") => {
+    setActiveStat((prev) => (prev === stat ? null : stat));
+  };
+
   return (
     <section className="relative py-24 overflow-hidden">
       {/* Background Image */}
@@ -64,14 +80,53 @@ export default function MissionSection() {
         
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+          {/* Churches Worldwide */}
+          <div
+            className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 cursor-pointer transition hover:bg-white/20"
+            onClick={() => toggleStat("churches")}
+            onMouseEnter={() => setActiveStat("churches")}
+            onMouseLeave={() => setActiveStat((prev) => (prev === "churches" ? null : prev))}
+          >
             <div className="text-green-400 text-4xl font-bold mb-2">2</div>
             <p className="text-lg">Churches Worldwide</p>
+
+            {activeStat === "churches" && (
+              <div
+                className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-72 sm:w-80 bg-white text-gray-900 rounded-xl shadow-xl p-5 text-left z-20 animate-fade-in"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h4 className="font-semibold text-green-600 mb-1">
+                  {churchesContent.heading}
+                </h4>
+                <p className="text-sm text-gray-700 mb-4">{churchesContent.body}</p>
+                <h4 className="font-semibold text-green-600 mb-1">
+                  {churchesContent.branchHeading}
+                </h4>
+                <p className="text-sm text-gray-700">{churchesContent.branchBody}</p>
+              </div>
+            )}
           </div>
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-            <div className="text-green-400 text-4xl font-bold mb-2">1000+</div>
+
+          {/* Lives Transformed */}
+          <div
+            className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 cursor-pointer transition hover:bg-white/20"
+            onClick={() => toggleStat("lives")}
+            onMouseEnter={() => setActiveStat("lives")}
+            onMouseLeave={() => setActiveStat((prev) => (prev === "lives" ? null : prev))}
+          >
+            <div className="text-green-400 text-4xl font-bold mb-2">100+</div>
             <p className="text-lg">Lives Transformed</p>
+
+            {activeStat === "lives" && (
+              <div
+                className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-72 sm:w-80 bg-white text-gray-900 rounded-xl shadow-xl p-5 text-left z-20 animate-fade-in"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <p className="text-sm text-gray-700">{livesContent}</p>
+              </div>
+            )}
           </div>
+
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
             <div className="text-green-400 text-4xl font-bold mb-2">9</div>
             <p className="text-lg">Years of Ministry</p>
