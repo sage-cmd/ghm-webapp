@@ -94,16 +94,64 @@ export default function ProgramsSection() {
         {/* Weekly Schedule Banner */}
         {showSchedule && !showAllPrograms && (
           <div className="mt-10 bg-green-600 text-white rounded-xl p-6 shadow-lg max-w-3xl mx-auto">
-            <h4 className="text-2xl font-bold mb-4 text-center">
+            <h4 className="text-2xl font-bold mb-6 text-center">
               Weekly Church Schedule
             </h4>
 
-            <ul className="space-y-3 text-lg">
-              <li> <strong>Friday:</strong> Turn Around Prayer Meeting – 6:30 PM</li>
-              <li> <strong>Sunday:</strong> Morning Glory Service – 7:00 AM</li>
-              <li> <strong>Sunday:</strong> Day Star Service – 9:00 AM</li>
-              <li> <strong>First Sunday:</strong> Communion & Joint Service – 8:00 AM</li>
-            </ul>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Fridays */}
+              <div>
+                <h5 className="text-lg font-semibold mb-3 border-b border-white/30 pb-2">
+                  Fridays
+                </h5>
+                <ul className="space-y-3 text-base leading-relaxed">
+                  <li>
+                    <strong>Divine Turnaround Prayer Meeting</strong>
+                    <br />
+                    <span className="text-white/80 text-sm">(every Friday)</span>
+                    <br />
+                    6:30 PM – 8:30 PM
+                  </li>
+                  <li>
+                    <strong>Divine Turnaround Prophetic All Night</strong>
+                    <br />
+                    <span className="text-white/80 text-sm">
+                      (every last Friday of the month)
+                    </span>
+                    <br />
+                    10:00 PM – 4:30 AM
+                  </li>
+                </ul>
+              </div>
+
+              {/* Sundays */}
+              <div>
+                <h5 className="text-lg font-semibold mb-3 border-b border-white/30 pb-2">
+                  Sundays
+                </h5>
+                <ul className="space-y-3 text-base leading-relaxed">
+                  <li>
+                    <strong>Morning Glory Service</strong>
+                    <br />
+                    7:30 AM – 9:00 AM
+                  </li>
+                  <li>
+                    <strong>Day Star Service</strong>
+                    <br />
+                    9:30 AM – 12:30 PM
+                  </li>
+                  <li>
+                    <strong>Communion Service</strong>
+                    <br />
+                    <span className="text-white/80 text-sm">
+                      (1st Sunday of every month)
+                    </span>
+                    <br />
+                    9:00 AM – 12:00 PM
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         )}
 

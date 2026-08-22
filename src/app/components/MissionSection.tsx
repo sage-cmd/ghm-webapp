@@ -132,7 +132,7 @@ export default function MissionSection() {
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-            <div className="text-green-400 text-4xl font-bold mb-2">9</div>
+            <div className="text-green-400 text-4xl font-bold mb-2">10</div>
             <p className="text-lg">Years of Ministry</p>
           </div>
         </div>
