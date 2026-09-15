@@ -2,12 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 
 export default function MissionSection() {
   const [showMission, setShowMission] = useState(false);
   const [activeStat, setActiveStat] = useState<"churches" | "lives" | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const missionContent = {
     title: "Our Mission",
@@ -40,7 +52,7 @@ export default function MissionSection() {
 
   return (
     <section className="relative py-24">
-      {/* Background layer (clipped so the image/overlay stay within the section) */}
+      {/* Background layer */}
       <div className="absolute inset-0 overflow-hidden">
         <Image
           src="/images/hero-bg.webp"
@@ -64,10 +76,10 @@ export default function MissionSection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
             <button
-            onClick={() => setShowMission(true)}
-            className="bg-green-500 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-green-600 transition">
-
-            Our Mission
+              onClick={() => setShowMission(true)}
+              className="bg-green-500 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-green-600 transition"
+            >
+              Our Mission
             </button>
 
             <Link href="https://web.facebook.com/gloriousheritageministries/live_videos/">
@@ -78,21 +90,38 @@ export default function MissionSection() {
           </div>
         </div>
         
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        {/* Stats - Added overflow-visible */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 overflow-visible">
           {/* Churches Worldwide */}
           <div
             className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 cursor-pointer transition hover:bg-white/20"
             onClick={() => toggleStat("churches")}
-            onMouseEnter={() => setActiveStat("churches")}
-            onMouseLeave={() => setActiveStat((prev) => (prev === "churches" ? null : prev))}
           >
             <div className="text-green-400 text-4xl font-bold mb-2">2</div>
             <p className="text-lg">Churches Worldwide</p>
 
-            {activeStat === "churches" && (
+            {/* Mobile: Show content below the card */}
+            {isMobile && activeStat === "churches" && (
+              <div className="mt-4 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left animate-fade-in">
+                <h4 className="font-semibold text-green-600 text-lg mb-1">
+                  {churchesContent.heading}
+                </h4>
+                <p className="text-base leading-relaxed text-gray-700 mb-4">
+                  {churchesContent.body}
+                </p>
+                <h4 className="font-semibold text-green-600 text-lg mb-1">
+                  {churchesContent.branchHeading}
+                </h4>
+                <p className="text-base leading-relaxed text-gray-700">
+                  {churchesContent.branchBody}
+                </p>
+              </div>
+            )}
+
+            {/* Desktop: Show as tooltip */}
+            {!isMobile && activeStat === "churches" && (
               <div
-                className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[90vw] max-w-md sm:w-96 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left z-30 animate-fade-in"
+                className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-96 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left z-50 animate-fade-in"
                 onClick={(e) => e.stopPropagation()}
               >
                 <h4 className="font-semibold text-green-600 text-lg mb-1">
@@ -115,15 +144,21 @@ export default function MissionSection() {
           <div
             className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 cursor-pointer transition hover:bg-white/20"
             onClick={() => toggleStat("lives")}
-            onMouseEnter={() => setActiveStat("lives")}
-            onMouseLeave={() => setActiveStat((prev) => (prev === "lives" ? null : prev))}
           >
             <div className="text-green-400 text-4xl font-bold mb-2">100+</div>
             <p className="text-lg">Lives Transformed</p>
 
-            {activeStat === "lives" && (
+            {/* Mobile: Show content below the card */}
+            {isMobile && activeStat === "lives" && (
+              <div className="mt-4 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left animate-fade-in">
+                <p className="text-base leading-relaxed text-gray-700">{livesContent}</p>
+              </div>
+            )}
+
+            {/* Desktop: Show as tooltip */}
+            {!isMobile && activeStat === "lives" && (
               <div
-                className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[90vw] max-w-md sm:w-96 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left z-30 animate-fade-in"
+                className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-96 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left z-50 animate-fade-in"
                 onClick={(e) => e.stopPropagation()}
               >
                 <p className="text-base leading-relaxed text-gray-700">{livesContent}</p>
@@ -138,14 +173,14 @@ export default function MissionSection() {
         </div>
       </div>
 
-       {/* Mission Modal */}
+      {/* Mission Modal */}
       {showMission && (
         <div
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
           onClick={() => setShowMission(false)}
         >
           <div
-            className="bg-white text-gray-900 rounded-2xl max-w-2xl w-full p-8 relative animate-fade-in"
+            className="bg-white text-gray-900 rounded-2xl max-w-2xl w-full p-8 relative animate-fade-in max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -164,7 +199,7 @@ export default function MissionSection() {
             <p className="text-lg leading-relaxed mb-6 text-gray-700">
               {missionContent.description}
             </p>
-             {/* Mission Values */}
+            {/* Mission Values */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold mb-4 text-gray-800">
                 Our Core Values
