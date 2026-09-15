@@ -2,24 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { X } from "lucide-react";
 
 export default function MissionSection() {
   const [showMission, setShowMission] = useState(false);
   const [activeStat, setActiveStat] = useState<"churches" | "lives" | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Detect mobile device
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const [showStatModal, setShowStatModal] = useState(false);
 
   const missionContent = {
     title: "Our Mission",
@@ -46,8 +35,14 @@ export default function MissionSection() {
   const livesContent =
     "Hundreds of lives have been touched and transformed by the ministry over the years, and we are still continuing in this commission to touch the thousands and the millions to fulfil the mandate of the great commission.";
 
-  const toggleStat = (stat: "churches" | "lives") => {
-    setActiveStat((prev) => (prev === stat ? null : stat));
+  const openStatModal = (stat: "churches" | "lives") => {
+    setActiveStat(stat);
+    setShowStatModal(true);
+  };
+
+  const closeStatModal = () => {
+    setShowStatModal(false);
+    setActiveStat(null);
   };
 
   return (
@@ -90,80 +85,26 @@ export default function MissionSection() {
           </div>
         </div>
         
-        {/* Stats - Added overflow-visible */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 overflow-visible">
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Churches Worldwide */}
           <div
             className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 cursor-pointer transition hover:bg-white/20"
-            onClick={() => toggleStat("churches")}
+            onClick={() => openStatModal("churches")}
           >
             <div className="text-green-400 text-4xl font-bold mb-2">2</div>
             <p className="text-lg">Churches Worldwide</p>
-
-            {/* Mobile: Show content below the card */}
-            {isMobile && activeStat === "churches" && (
-              <div className="mt-4 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left animate-fade-in">
-                <h4 className="font-semibold text-green-600 text-lg mb-1">
-                  {churchesContent.heading}
-                </h4>
-                <p className="text-base leading-relaxed text-gray-700 mb-4">
-                  {churchesContent.body}
-                </p>
-                <h4 className="font-semibold text-green-600 text-lg mb-1">
-                  {churchesContent.branchHeading}
-                </h4>
-                <p className="text-base leading-relaxed text-gray-700">
-                  {churchesContent.branchBody}
-                </p>
-              </div>
-            )}
-
-            {/* Desktop: Show as tooltip */}
-            {!isMobile && activeStat === "churches" && (
-              <div
-                className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-96 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left z-50 animate-fade-in"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h4 className="font-semibold text-green-600 text-lg mb-1">
-                  {churchesContent.heading}
-                </h4>
-                <p className="text-base leading-relaxed text-gray-700 mb-4">
-                  {churchesContent.body}
-                </p>
-                <h4 className="font-semibold text-green-600 text-lg mb-1">
-                  {churchesContent.branchHeading}
-                </h4>
-                <p className="text-base leading-relaxed text-gray-700">
-                  {churchesContent.branchBody}
-                </p>
-              </div>
-            )}
+            <p className="text-sm text-gray-300 mt-2">Tap to view details</p>
           </div>
 
           {/* Lives Transformed */}
           <div
             className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 cursor-pointer transition hover:bg-white/20"
-            onClick={() => toggleStat("lives")}
+            onClick={() => openStatModal("lives")}
           >
             <div className="text-green-400 text-4xl font-bold mb-2">100+</div>
             <p className="text-lg">Lives Transformed</p>
-
-            {/* Mobile: Show content below the card */}
-            {isMobile && activeStat === "lives" && (
-              <div className="mt-4 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left animate-fade-in">
-                <p className="text-base leading-relaxed text-gray-700">{livesContent}</p>
-              </div>
-            )}
-
-            {/* Desktop: Show as tooltip */}
-            {!isMobile && activeStat === "lives" && (
-              <div
-                className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-96 bg-white text-gray-900 rounded-2xl shadow-2xl p-6 text-left z-50 animate-fade-in"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <p className="text-base leading-relaxed text-gray-700">{livesContent}</p>
-              </div>
-            )}
+            <p className="text-sm text-gray-300 mt-2">Tap to view details</p>
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
@@ -172,6 +113,76 @@ export default function MissionSection() {
           </div>
         </div>
       </div>
+
+      {/* Stat Modal - Full Screen Banner for Mobile */}
+      {showStatModal && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4"
+          onClick={closeStatModal}
+        >
+          <div
+            className="bg-white text-gray-900 w-full sm:max-w-lg sm:rounded-2xl p-6 sm:p-8 relative animate-slide-up sm:animate-fade-in max-h-[85vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeStatModal}
+              className="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition"
+              aria-label="Close"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Modal Content */}
+            {activeStat === "churches" && (
+              <div>
+                <div className="text-green-500 text-4xl font-bold mb-4">2</div>
+                <h3 className="text-2xl font-bold text-green-600 mb-4 pr-12">
+                  Churches Worldwide
+                </h3>
+                
+                <div className="mb-6">
+                  <h4 className="font-semibold text-green-600 text-lg mb-2">
+                    {churchesContent.heading}
+                  </h4>
+                  <p className="text-base leading-relaxed text-gray-700 mb-4">
+                    {churchesContent.body}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-green-600 text-lg mb-2">
+                    {churchesContent.branchHeading}
+                  </h4>
+                  <p className="text-base leading-relaxed text-gray-700">
+                    {churchesContent.branchBody}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {activeStat === "lives" && (
+              <div>
+                <div className="text-green-500 text-4xl font-bold mb-4">100+</div>
+                <h3 className="text-2xl font-bold text-green-600 mb-4 pr-12">
+                  Lives Transformed
+                </h3>
+                <p className="text-base leading-relaxed text-gray-700">
+                  {livesContent}
+                </p>
+              </div>
+            )}
+
+            {/* Close Button at Bottom */}
+            <button
+              onClick={closeStatModal}
+              className="mt-6 bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition w-full font-medium"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Mission Modal */}
       {showMission && (
@@ -186,10 +197,10 @@ export default function MissionSection() {
             {/* Close Button */}
             <button
               onClick={() => setShowMission(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition"
+              className="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition"
               aria-label="Close modal"
             >
-              <X size={24} />
+              <X size={20} />
             </button>
 
             {/* Mission Content */}
@@ -220,7 +231,7 @@ export default function MissionSection() {
             {/* Close Button */}
             <button
               onClick={() => setShowMission(false)}
-              className="bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition w-full"
+              className="bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition w-full font-medium"
             >
               Close
             </button>
