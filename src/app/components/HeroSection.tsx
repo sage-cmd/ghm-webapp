@@ -1,8 +1,27 @@
+"use client";
+
 // src/app/components/HeroSection.tsx
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState, useRef, useEffect } from 'react';
+import { Youtube, Facebook } from 'lucide-react';
 
 export default function HeroSection() {
+  const [showLiveOptions, setShowLiveOptions] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowLiveOptions(false);
+      }
+    }
+    if (showLiveOptions) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showLiveOptions]);
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <Image
@@ -34,14 +53,42 @@ export default function HeroSection() {
             >
               Join Our Community
             </Link>
-            <Link 
-              href="https://web.facebook.com/gloriousheritageministries"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-white hover:text-gray-900 transition inline-block"
-            >
-              Watch Live
-            </Link>
+
+            {/* Watch Live dropdown */}
+            <div className="relative inline-block" ref={dropdownRef}>
+              <button
+                onClick={() => setShowLiveOptions((prev) => !prev)}
+                className="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-white hover:text-gray-900 transition inline-block w-full sm:w-auto"
+              >
+                Watch Live
+              </button>
+
+              {showLiveOptions && (
+                <div className="absolute left-1/2 -translate-x-1/2 mt-3 w-56 bg-white rounded-2xl shadow-xl overflow-hidden text-gray-900 z-20 animate-fade-in">
+                  <Link
+                    href="https://youtube.com/@gloriousheritageministries1193?si=b3UyfOaT6tSt865i"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowLiveOptions(false)}
+                    className="flex items-center gap-3 px-5 py-4 hover:bg-gray-100 transition"
+                  >
+                    <Youtube size={22} className="text-red-600" />
+                    <span className="font-medium">Watch on YouTube</span>
+                  </Link>
+                  <div className="h-px bg-gray-200" />
+                  <Link
+                    href="https://web.facebook.com/gloriousheritageministries/live_videos/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowLiveOptions(false)}
+                    className="flex items-center gap-3 px-5 py-4 hover:bg-gray-100 transition"
+                  >
+                    <Facebook size={22} className="text-blue-600" />
+                    <span className="font-medium">Watch on Facebook</span>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
